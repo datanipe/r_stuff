@@ -1,0 +1,74 @@
+---
+title: "sankey_test"
+author: "NV"
+date: "2/20/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+install.packages("networkD3")
+library(networkD3)
+
+
+```
+
+
+
+```{r}
+library(networkD3)
+nodes = data.frame("name" = 
+ c("Node A", # Node 0
+ "Node B", # Node 1
+ "Node C", # Node 2
+ "Node D"))# Node 3
+links = as.data.frame(matrix(c(
+ 0, 1, 10, # Each row represents a link. The first number
+ 0, 2, 20, # represents the node being conntected from. 
+ 1, 3, 30, # the second number represents the node connected to.
+ 2, 3, 40),# The third number is the value of the node
+ byrow = TRUE, ncol = 3))
+names(links) = c("source", "target", "value")
+sankeyNetwork(Links = links, Nodes = nodes,
+ Source = "source", Target = "target",
+ Value = "value", NodeID = "name",
+ fontSize= 12, nodeWidth = 30)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r}
+
+src <- c("A", "A", "A", "A",
+        "B", "B", "C", "C", "D")
+target <- c("B", "C", "D", "J",
+            "E", "F", "G", "H", "I")
+networkData <- data.frame(src, target)
+
+# Plot
+simpleNetwork(networkData)
+
+
+```
+
+```{r}
+# Load energy projection data
+# Load energy projection data
+URL <- paste0(
+        "https://cdn.rawgit.com/christophergandrud/networkD3/",
+        "master/JSONdata/energy.json")
+Energy <- jsonlite::fromJSON(URL)
+# Plot
+sankeyNetwork(Links = Energy$links, Nodes = Energy$nodes, Source = "source",
+             Target = "target", Value = "value", NodeID = "name",
+             units = "TWh", fontSize = 12, nodeWidth = 30)
+```
+
+```{r}
+str(Energy)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
