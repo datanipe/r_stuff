@@ -1,0 +1,16 @@
+---
+title: "stan_rethinking"
+author: "NV"
+date: "2/20/2018"
+output: html_document
+---
+
+```{r}
+d <- read.csv(file="data/Howell1.csv", header=TRUE, sep=";")
+
+
+```
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
